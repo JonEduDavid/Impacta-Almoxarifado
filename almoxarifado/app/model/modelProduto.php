@@ -8,4 +8,4 @@ use App\Model\ModelPadrao,
 /**
  * Summary of ModelUsuario
  */
-class ModelUsuario extends ModelPadrao { }
+class ModelProduto extends ModelPadrao { }

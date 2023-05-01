@@ -16,11 +16,19 @@ class Rotas {
             case 'login' :
                 return (new \App\Controller\ControllerLogin)->processamentoPadrao($sPag); 
             case 'consultaUsuario' :
-                return (new \App\Controller\ControllerConsultaUsuario)->processamentoPadrao($sPag);  //verificar o nome da funcao responsavel por renderizar a tela.
+                return (new \App\Controller\ControllerConsultaUsuario)->processamentoPadrao($sPag);
             case 'cadastroUsuario' :
-                return (new \App\Controller\ControllerCadastroUsuario)->processamentoPadrao($sPag);  //verificar o nome da funcao responsavel por renderizar a tela.
+                return (new \App\Controller\ControllerCadastroUsuario)->processamentoPadrao($sPag);
+            case 'consultaFornecedor' :
+                return (new \App\Controller\ControllerConsultaFornecedor)->processamentoPadrao($sPag);
+            case 'cadastroFornecedor' :
+                // return (new \App\Controller\)->processamentoPadrao($sPag);
+            case 'consultaProduto' :
+                return (new \App\Controller\ControllerConsultaProduto)->processamentoPadrao($sPag);
+            case 'cadastroProduto' :
+                // return (new \App\Controller\)->processamentoPadrao($sPag);
         }
-        return "Not Found - 404";
+        return "Nao encontrado a pagina";
     }
     
 } 

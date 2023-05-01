@@ -4,16 +4,16 @@ namespace App\Controller;
 
 use App\Controller\ControllerPadrao,
     App\Persistencia\PersistenciaUsuario,
-    App\Model\ModelUsuario;
+    App\Persistencia\Client\ClientSession;
 
 class ControllerLogin extends ControllerPadrao {
 
     protected function processLogin() {
         $aChavesLogin = $this->getChavesLogin();
-        // $aDados = $this->getDados(new PersistenciaUsuario, new ModelUsuario);
-        // if ($this->verificaAcesso($aChavesLogin, $aDados)) {
+        if ($this->verificaAcesso($aChavesLogin)) {
             return header('location: index.php?pag=consultaUsuario');
-        // }
+        }
+        echo '<script>alert("O Usuario ou senha errado.")</script>';
     } 
 
     private function getChavesLogin() {
@@ -23,21 +23,23 @@ class ControllerLogin extends ControllerPadrao {
         ];
     }
 
-    private function verificaAcesso($aChavesLogin, $aUsuariosSistema) {
+    private function verificaAcesso($aChavesLogin) {
+        $aUsuariosSistema = (new PersistenciaUsuario)->verificaLogin();
         foreach ($aUsuariosSistema as $aUsuario) {
             if ($this->usuarioLogin($aChavesLogin, $aUsuario) && $this->usuarioSenha($aChavesLogin, $aUsuario) ) {
+                $oSession = (new ClientSession());
+                $oSession->login($aUsuario['usuid']);
                 return true;
             }
         }
-        return false;
     }
 
     private function usuarioLogin($aChavesLogin, $aUsuario) {
-        return $aUsuario['usuarioId'] == $aChavesLogin['usuario'];
+        return $aUsuario['usuid'] == $aChavesLogin['usuario'];
     }
 
     private function usuarioSenha($aChavesLogin, $aUsuario) {
-        return $aUsuario['usuarioSenha'] == $aChavesLogin['senha'];
+        return $aUsuario['ususenha'] == $aChavesLogin['senha'];
     }
 
 

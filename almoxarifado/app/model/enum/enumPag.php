@@ -10,11 +10,11 @@ class EnumPag { //alterar para o nome EnumNomeArquivo.
 
 
     public static function getPagDinamica() {
-        return ["telaPadrao"];
+        return ["consultaUsuario"];
     }
 
     public static function getPagCompleta() {
-        return ["login", "telaCadastro"];
+        return ["login", "cadastroUsuario"];
     }
 
 
@@ -34,7 +34,10 @@ class EnumPag { //alterar para o nome EnumNomeArquivo.
 
     public static function getPagNomeCompleta() { //ajustar para ter o nome getPagNomeTelaCompleta.
         return [
-            "login" => 'pageCompleta/login'
+            "login" => 'pageCompleta/login',
+            "cadastroUsuario" => 'pageCompleta/telaCadastroUsuario',
+            "cadastroFornecedor" => 'pageCompleta/telaCadastroFornecedor',
+            "cadastroProduto" => 'pageCompleta/telaCadastroProduto'
         ];
     }
 

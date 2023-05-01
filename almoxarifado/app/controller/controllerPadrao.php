@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
-use App\View\ViewPadrao,
-    App\Model\Enum\EnumPag;
-use Exception;
 use App\Persistencia\PersistenciaPadrao;
+use App\View\ViewPadrao,
+    App\Model\Enum\EnumPag,
+    App\View\PageDinamica\viewDinamicaPadrao;
+
 
 /**
  * Classe responsavel pelo comportamento estrutural do sistema.
@@ -45,6 +46,8 @@ class ControllerPadrao {
 
     protected function processLogin() { }
 
+    protected function getChavesRequisicao() { }
+
     /**
      * Processa a criacao de tela.
      * 
@@ -55,8 +58,7 @@ class ControllerPadrao {
         if ($this->verificaPagCompleta($sPag)) {
             return $this->renderPageCompleta($this->buscaNomeArquivoPag($sPag));
         }
-        $aBodyPagDinamica = $this->processaTelaDinamica($sPag);
-        return $this->renderPageDinamica($aBodyPagDinamica);
+        return (new ViewDinamicaPadrao())->processaPagDinamica($sPag);
     } 
 
     /**
@@ -86,51 +88,6 @@ class ControllerPadrao {
     }
 
     /**
-     * Summary of getArquivoFromNome
-     * @param mixed $sNomeArquivo
-     * @return bool
-     */
-    public function getArquivoFromCaminhoNome($sNomeArquivo) {
-        return ViewPadrao::getContentView($sNomeArquivo);  
-    }
-
-    private function processaTelaDinamica($sPag) {
-        return ['title' => $this->setTitle(), //desenvolver o title.
-                'header' => $this->setHeader(), //terminar de desenvolver conforme o usuario logado.
-                'content' => $this->setTelaConteudo(), //
-                'footer' => $this->setFooter()
-        ];
-    }
-
-    /**
-     * Fazer o metodo que busca o Titulo da pagina conforme o nome dela.
-     */
-    protected function setTitle() { }
-
-    /**
-     * 
-     */
-    protected function setHeader() { }
-
-    /**
-     * arruamar para buscar o arquivo corretamente conforme o nome da pagina passada.
-     */
-    protected function setTelaConteudo() { }
-    
-    protected function setFooter() { }
-
-    public function getDados(object $oPersistencia, object $oModel) {
-        var_dump($oPersistencia, $oModel);
-        $aDadosPersistencia = $oPersistencia->getAllDados();
-        $oModeloDados = $oModel->carregaDados($aDadosPersistencia);
-        return $oModeloDados;
-    }
-
-    protected function montaTelaConteudo($sNomeTela, $aDados, $aNomeColunas, $aNomeColunaBanco) {
-        return (new ViewPadrao)->montaTelaConteudo($sNomeTela, $aDados, $aNomeColunas, $aNomeColunaBanco);
-    }
-
-    /**
      * Esse metodo vai ser alterado para uma metodo de chamada de paginas staticas
      * Tratar para ser um metodo dinamico. 
      * 
@@ -138,21 +95,6 @@ class ControllerPadrao {
      */
     public static function renderPageCompleta($sNomePag) {
         return ViewPadrao::renderPageCompleta($sNomePag);
-    }
-
-    /**
-     * Metodo responsavel por retornar o conteudo generico da pagina.
-     * Tratar para ser um metodo dinamico. 
-     * 
-     * @return array|string
-     */
-    public static function renderPageDinamica($aBodyPagDinamica) {
-        return ViewPadrao::renderPageDinamica('pageCompleta/telaPadrao', [ 
-            'title' => $aBodyPagDinamica['title'],
-            'header' => $aBodyPagDinamica['header'],  //alterar para comportar as View de Header conforme o usuario.
-            'content' => $aBodyPagDinamica['content'], //alterar para possuir o conteudo da tela.
-            'footer' => $aBodyPagDinamica['footer']  //alterar para possuir o rodape da pagina.
-        ]);
     }
      
 }

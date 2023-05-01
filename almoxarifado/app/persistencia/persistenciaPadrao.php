@@ -2,62 +2,50 @@
 
 namespace App\Persistencia;
 
-use mysqli;
+use App\Persistencia\Client\ClientSession as ClientClientSession;
+use App\Persistencia\Connection\Connection;
+use App\Persistencia\Querry\Querry;
 
 /**
  * Summary of PersistenciaPadrao
  */
-class PersistenciaPadrao {
-
-    // static $conexao = pg_pconnect("host=127.0.0.1 port=5432 dbname=postgres user=postgres password=123");
+class PersistenciaPadrao extends ClientClientSession {
 
     protected function getNomeSchemaTabela() { }
 
-    /**
-     * Summary of getAllDados
-     * @return 
-     */
-    public function getAllDados() { 
+    protected function getNomeColunasTabela() { }
 
-        $hostname = 'localhost';
-        $dbname = 'almoxarifado';
-        $usuario = 'postgres';
-        $senha = '123';
-        $port = '5432';
+    protected function getNomeColunasTelaPadrao() { }
 
-        $mysqli = new mysqli($hostname, $dbname, $senha, $usuario, $port);
-
-        if ($mysqli->connect_errno) {
-            return "falha ao conectar:(" . $mysqli->connect_errno . ")" . $mysqli->connect_errno;
-        } else {
-            return "Conectado ao Banco de Dados";
-        }
-    
-
-        // // $sCon = "host=localhost port=5432 dbname=WAX.tbusuario user=postgres password=123";
-        // // $oConexao = pg_connect($sCon);
-        // // var_dump($oConexao);
-        
-        // $sQuery = 'SELECT * FROM' .$this->getNomeSchemaTabela();
-        // $oResult = pg_query($oConexao, $sQuery);
-        // $aData = [];
-        // while ($aResultado = pg_fetch_assoc($oResult)) {
-        //     $aData[] = $aResultado;
-        // }
-        // return $aData;
+    public function getAllDados() {
+        $oQuery = new Querry;
+        $sScrit = $oQuery->set_select('*');
+        $sScrit .= $oQuery->set_tabela($this->getNomeSchemaTabela());
+        return $this->select($sScrit);
     }
 
+    protected function select($sQuerry) {
+        $oConnection = (new Connection())->connection();
+        $oResult = pg_query($oConnection, $sQuerry);
+        $aData = [];
+        while ($aResultado = pg_fetch_assoc($oResult)){
+            $aData[] = $aResultado;
+        }
+        return $aData;
+    }
 
-    // public function insert() {
-    //     $oConexao = $this->conexao;
-    // }
+    public function insert($sQuerry) {
+        $oConnection = (new Connection())->connection();
+        $sSql = 'INSERT INTO '.$this->getNomeSchemaTabela(). '('.implode(',', array_keys($sQuerry)). ') VALUES ('.implode(',', array_values($sQuerry)). ') ';
+        return pg_query($oConnection, $sSql);
+    }
 
-    // public function update() {
-    //     $oConexao = $this->conexao;
-    // }
+    protected function update() {
+        //pega a query e execulta a alteracao no banco.
+    }
 
-    // public function delete() {
-    //     $oConexao = $this->conexao;
-    // }
+    protected function delete() {
+        //pega a query e execulta a exclusao do dados se possivel.
+    }
 
 }
