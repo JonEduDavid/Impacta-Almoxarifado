@@ -9,19 +9,17 @@ use App\View\PageDinamica\ViewDinamicaPadrao,
 class ViewConsultaUsuario extends ViewDinamicaPadrao { 
 
     protected function setTitle() {
-        return ['title' => 'Consulta Usuario',
-                'href' => 'http://localhost/almoxarifado/index.php?pag=cadastroUsuario',
-                'label' => 'Cadastrar um novo usuario.'];
-    }
-
-    protected function setHeader() {
-        $sCaminhoNomeArquivo = 'pageDinamica/header/altoNivel';
-        return $this->getArquivoFromCaminhoNome($sCaminhoNomeArquivo);
+        return 'Consulta Usuario';
     }
 
     protected function setTelaConteudo() {
-        $aDados = (new ModelUsuario())->getDados(new PersistenciaUsuario);
-        return $this->montaTelaConteudo($this->setTitle(), $aDados, (new PersistenciaUsuario)->getNomeColunasTelaPadrao(), (new PersistenciaUsuario)->getNomeColunasTabela());
+        $aDadosTabela = (new ModelUsuario())->getDados(new PersistenciaUsuario);
+        $aDadosGeral = ['title' => 'Consulta Usuario',
+                        'href' => 'http://localhost/almoxarifado/index.php?pag=cadastroUsuario',
+                        'label' => 'Cadastrar um novo Usuario.',
+                        'NomeColunas' => (new PersistenciaUsuario)->getNomeColunasTelaPadrao(),
+                        'NomeColunasTabela' => (new PersistenciaUsuario)->getNomeColunasTabela()];
+        return $this->montaTelaConteudo($aDadosTabela, $aDadosGeral);
     }
 
 }

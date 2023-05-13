@@ -9,19 +9,17 @@ use App\View\PageDinamica\ViewDinamicaPadrao,
 class ViewConsultaProduto extends ViewDinamicaPadrao { 
 
     protected function setTitle() {
-        return ['title' => 'Consulta Produto',
-                'href' => 'http://localhost/almoxarifado/index.php?pag=cadastroProduto',
-                'label' => 'Cadastrar um novo Produto.'];
-    }
-
-    protected function setHeader() {
-        $sCaminhoNomeArquivo = 'pageDinamica/header/altoNivel';
-        return $this->getArquivoFromCaminhoNome($sCaminhoNomeArquivo);
+        return 'Consulta Produto';
     }
 
     protected function setTelaConteudo() {
-        $aDados = (new ModelProduto())->getDados(new PersistenciaProduto);
-        return $this->montaTelaConteudo($this->setTitle(), $aDados, (new PersistenciaProduto)->getNomeColunasTelaPadrao(), (new PersistenciaProduto)->getNomeColunasTabela());
+        $aDadosTabela = (new ModelProduto())->getDados(new PersistenciaProduto);
+        $aDadosGeral = ['title' => 'Consulta Produto',
+                        'href' => 'http://localhost/almoxarifado/index.php?pag=cadastroProduto',
+                        'label' => 'Cadastrar um novo Produto.',
+                        'NomeColunas' => (new PersistenciaProduto)->getNomeColunasTelaPadrao(),
+                        'NomeColunasTabela' => (new PersistenciaProduto)->getNomeColunasTabela()];
+        return $this->montaTelaConteudo($aDadosTabela, $aDadosGeral);
     }
 
 }

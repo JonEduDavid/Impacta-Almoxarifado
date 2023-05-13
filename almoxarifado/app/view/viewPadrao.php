@@ -10,16 +10,6 @@ use App\View\PageDinamica\Content\montaTelaConteudo;
 class ViewPadrao {
 
     /**
-     * Summary of montaTelaConteudo
-     * @param array $aDados
-     * @param array $aNomeColunas
-     * @return 
-     */
-    public function montaTelaConteudo($sNomeTela, $aDados, $aNomeColunas, $aNomeColunaBanco) {
-        return MontaTelaConteudo::getTelaConteudo($sNomeTela, $aDados, $aNomeColunas , $aNomeColunaBanco);
-    }
-    
-    /**
      * Metodo responsavel por retornar o conteudo de uma View.
      * 
      * @param string $sNomeView

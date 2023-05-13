@@ -3,7 +3,8 @@
 namespace App\View\PageDinamica;
 
 use App\View\ViewPadrao,
-    App\View\PageDinamica\Content\MontaTelaConteudo;
+    App\View\PageDinamica\Content\MontaTelaConteudo,
+    App\Persistencia\PersistenciaUsuario;
 
 class ViewDinamicaPadrao {
 
@@ -15,6 +16,8 @@ class ViewDinamicaPadrao {
                 return (new \App\View\PageDinamica\ViewConsultaProduto)->processaTelaDinamica();
             case 'consultaFornecedor' :
                 return (new \App\View\PageDinamica\ViewConsultaFornecedor)->processaTelaDinamica();
+            case 'consultaObservacao' :
+                return (new \App\View\PageDinamica\ViewConsultaObservacao)->processaTelaDinamica();
         }
         return "nao achou a pag dinamica";
     }
@@ -34,14 +37,26 @@ class ViewDinamicaPadrao {
     /**
      * Fazer o metodo que busca o Titulo da pagina conforme o nome dela.
      */
-    private function setTitle() {
-        
-    }
+    protected function setTitle() { }
 
     /**
      * 
      */
-    protected function setHeader() { }
+    protected function setHeader() { 
+        $aDados = (new PersistenciaUsuario())->tipoUsuarioLogado();
+        $aTipoUsuario = $aDados[0];
+        switch($aTipoUsuario['usucodigopermisao']) {
+            case '1':
+                $sCaminhoNomeArquivo = 'pageDinamica/header/altoNivel';
+                return $this->getArquivoFromCaminhoNome($sCaminhoNomeArquivo);
+            case '2':
+                $sCaminhoNomeArquivo = 'pageDinamica/header/medioNivel';
+                return $this->getArquivoFromCaminhoNome($sCaminhoNomeArquivo);
+            case '3':
+                $sCaminhoNomeArquivo = 'pageDinamica/header/baixoNivel';
+                return $this->getArquivoFromCaminhoNome($sCaminhoNomeArquivo);
+        }
+    }
 
     /**
      * arruamar para buscar o arquivo corretamente conforme o nome da pagina passada.
@@ -52,8 +67,8 @@ class ViewDinamicaPadrao {
     protected function setFooter() { }
 
 
-    public function montaTelaConteudo($sNomeTela, $aDados, $aNomeColunas, $aNomeColunaBanco) {
-        return MontaTelaConteudo::getTelaConteudo($sNomeTela, $aDados, $aNomeColunas , $aNomeColunaBanco);
+    public function montaTelaConteudo($aDadosTabela, $aDadosGeral) {
+        return MontaTelaConteudo::getTelaConteudo($aDadosTabela, $aDadosGeral);
     }
 
     /**

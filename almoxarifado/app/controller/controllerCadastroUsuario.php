@@ -17,10 +17,10 @@ class ControllerCadastroUsuario extends ControllerPadrao {
 
     protected function getChavesRequisicao() {  
         $aChaves = [
-            'usunome' => "'".$_POST['firstname']."'",
+            'usunome'     => "'".$_POST['firstname']."'",
             'usutelefone' => $_POST['tel'],
-            'ususenha' => $_POST['senha'],
-            'usucpfcnpj' => $_POST['cpfcnpj']
+            'ususenha'    => $_POST['senha'],
+            'usucpfcnpj'  => $_POST['cpfcnpj']
         ];
         $sTipoUsuario[] = $this->getTipoUsuario();
         return array_merge($aChaves, $sTipoUsuario[0]);

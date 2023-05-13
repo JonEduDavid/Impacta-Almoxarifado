@@ -10,9 +10,14 @@
 
 }
 *{
-    margin: 0;
-    padding: 0;
+    margin: auto;
+    padding: auto;
 }
+
+div#DataTables_Table_0_wrapper {
+    width: 1000px;
+}
+
 body{
     font-family: Arial, Helvetica, sans-serif;
     background-color: var(--color-white);
@@ -76,7 +81,7 @@ body{
 table {
   border-collapse: collapse;
   width: 100%;
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   font-family: Arial, sans-serif;
   font-size: 14px;

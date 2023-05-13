@@ -5,11 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="app/view/pageCompleta/css/telaPadrao.css">
+    <style type="text/css" title="MeuEstilo">
+        @import "app/view/pageCompleta/dataTables/styles/demo_table.css";
+    </style>
     <title>{{title}}</title>
 </head>
 <body>
     {{header}}
     {{content}}
     {{footer}}
+    <script type="text/javascript" language="javascript" src="app/view/pageCompleta/dataTables/scripts/jquery.js"></script>
+    <script type="text/javascript" language="javascript" src="app/view/pageCompleta/dataTables/scripts/jquery.dataTables.js"></script>
+	<script src="app/view/comportamento/tabelaTelaConsulta.js"></script>
 </body>
 </html>

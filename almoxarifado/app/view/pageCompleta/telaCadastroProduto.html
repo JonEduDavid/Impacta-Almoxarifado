@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/telaProduto.css">
+    <link rel="stylesheet" type="text/css" href="app/view/pageCompleta/css/telaCadastroProduto.css">
     <title>Tela de Cadastro</title>
 </head>
 <body>
     <div class="container">
         <div class="form-image">
-            <img src="img/Reading list-rafiki.svg">
+            <img src="app/view/pageCompleta/img/Barcode-bro.svg">
         </div>
         <div class="form">
-            <form action="#">
+            <form action="" method="POST">
                 <div class="form-header">
                     <div class="title">
-                        <h1>Cadastro de Fornecedor</h1>
+                        <h1>Cadastro de Produto</h1>
                     </div>
                     <div class="login-button">
                         <button><a href="#">Confirmar</a></button>
@@ -25,34 +25,26 @@
 
                 <div class="input-group">
                     <div class="input-box">
-                        <label for="firstname">Nome</label>
-                        <input id="firstname"  type="text" name="firstname" placeholder="Digite o primeiro nome" required>
+                        <label for="Product">Nome</label>
+                        <input id="Product"  type="text" name="Product" placeholder="Nome do Produto" required>
                     </div>
 
                     <div class="input-box">
-                        <label for="number">Telefone</label>
-                        <input id="number"  type="tel" name="number" placeholder="(xx) xxxx-xxxx" required>
+                        <label for="number">ID</label>
+                        <input id="number"  type="number" name="number" placeholder="XXXXXXXXXX" required>
                     </div>
 
                     <div class="input-box">
-                        <label for="address">Endereço</label>
-                        <input id="address" type="text" name="address" placeholder="xxxx, nº, Bairro - Cidade" required>
+                        <label for="Valor">Valor</label>
+                        <input id="Valor" type="number" name="Valor" placeholder="X.XXX,XX" required>
                     </div>
 
                     <div class="input-box">
-                        <label for="address">UF</label>
-                        <input id="address" type="text" name="address" placeholder="UF" required>
+                        <label for="Data">Data de Validade</label>
+                        <input id="Data" type="number" name="Data" placeholder="XX/XX/XXXX" required>
                     </div>
 
-                    <div class="input-box">
-                        <label for="number">CNPJ</label>
-                        <input id="number"  type="number" name="number" placeholder="Somente os números" required>
-                    </div>
-
-                    <div class="input-box">
-                        <label for="email">E-mail</label>
-                        <input id="email" type="email" name="email" placeholder="Digite seu e-mail" required>
-                    </div>
+                   
                 </div>
 
                   
